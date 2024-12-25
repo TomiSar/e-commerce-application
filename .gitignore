@@ -14,7 +14,7 @@ __snapshots__
 build
 
 # misc
-.env
+backend/.env
 .DS_Store
 .env.local
 .env.development.local
