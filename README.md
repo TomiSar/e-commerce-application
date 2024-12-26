@@ -55,7 +55,8 @@ npx create-react-app e-commerce-application
 ### Documentation
 
 - https://tailwindcss.com/docs/guides/create-react-app
-  https://react-icons.github.io/react-icons/
+- https://react-icons.github.io/react-icons/
+- https://bcrypt-generator.com/
 
 ### Stripe CLI
 

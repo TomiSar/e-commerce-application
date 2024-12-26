@@ -1,10 +1,17 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
+import connectDB from './utils/db.js';
+import authRoutes from './routes/authRoutes.js';
+
+dotenv.config();
+const port = process.env.PORT || 5000;
 const app = express();
-require('dotenv').config();
-const port = process.env.PORT;
+
+// Connect to DB
+connectDB();
 
 // Middleware
 app.use(
@@ -14,9 +21,11 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+app.use(express.json());
 app.use(cookieParser());
 
-app.use('/api', require('./routes/authRoutes'));
+// Routes
+app.use('/api', authRoutes);
 
 app.get('', (req, res) => {
   res.send('Hello From server!!');
