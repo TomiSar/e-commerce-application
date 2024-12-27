@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { adminLogin } from '../../store/Reducers/authReducer';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { adminLogin, messageClear } from '../../store/Reducers/authReducer';
+import { PropagateLoader } from 'react-spinners';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
   const [user, setUser] = useState({
@@ -9,6 +12,10 @@ const AdminLogin = () => {
   });
 
   const dispatch = useDispatch();
+  const { loader, errorMessage, successMessage } = useSelector(
+    (state) => state.auth
+  );
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,6 +30,29 @@ const AdminLogin = () => {
     dispatch(adminLogin(user));
     // console.log('Submit with Data: ', user);
   };
+
+  const overrideStyle = {
+    display: 'flex',
+    margin: '0 auto',
+    height: '24px',
+    justifyContent: 'center',
+    alignItem: 'center',
+  };
+
+  useEffect(() => {
+    if (errorMessage) {
+      toast.error(errorMessage, { position: 'bottom-right', autoClose: 2000 });
+      dispatch(messageClear());
+    }
+    if (successMessage) {
+      toast.success(successMessage, {
+        position: 'bottom-right',
+        autoClose: 2000,
+      });
+      dispatch(messageClear());
+      navigate('/');
+    }
+  }, [errorMessage, successMessage, dispatch]);
 
   return (
     <div className='min-w-screen min-h-screen bg-[#cdcae9] flex justify-center items-center'>
@@ -64,8 +94,15 @@ const AdminLogin = () => {
                 value={user.password}
               />
             </div>
-            <button className='bg-slate-900 w-full hover:shadow-blue-300 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'>
-              Login
+            <button
+              className='bg-slate-900 w-full hover:shadow-blue-300 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'
+              disabled={loader}
+            >
+              {loader ? (
+                <PropagateLoader cssOverride={overrideStyle} color='#fff' />
+              ) : (
+                'Login'
+              )}
             </button>
           </form>
         </div>
