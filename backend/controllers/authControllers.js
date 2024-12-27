@@ -33,4 +33,19 @@ const adminLogin = async (req, res) => {
   }
 };
 
-export { adminLogin };
+const getUser = async (req, res) => {
+  const { id, role } = req;
+
+  try {
+    if (role === 'admin') {
+      const user = await Admin.findById(id);
+      responseReturn(res, 200, { userInfo: user });
+    } else {
+      console.log('Seller Info');
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export { adminLogin, getUser };
