@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/scope */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Pagination from '../Pagination';
@@ -62,14 +63,14 @@ const Category = () => {
                   {[1, 2, 3, 4, 5].map((d, i) => (
                     <tr key={i}>
                       <td
-                        scope='row'
                         className='py-1 px-4 font-medium whitespace-nowrap'
+                        scope='row'
                       >
                         {d}
                       </td>
                       <td
-                        scope='row'
                         className='py-1 px-4 font-medium whitespace-nowrap'
+                        scope='row'
                       >
                         <img
                           className='w-[45px] h-[45px]'
@@ -78,20 +79,20 @@ const Category = () => {
                         />
                       </td>
                       <td
-                        scope='row'
                         className='py-1 px-4 font-medium whitespace-nowrap'
+                        scope='row'
                       >
                         T-Shirt
                       </td>
                       <td
-                        scope='row'
                         className='py-1 px-4 font-medium whitespace-nowrap'
+                        scope='row'
                       >
                         Pending
                       </td>
                       <td
-                        scope='row'
                         className='py-1 px-4 font-medium whitespace-nowrap'
+                        scope='row'
                       >
                         <div className='flex justify-start items-center gap-4'>
                           <Link className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50'>

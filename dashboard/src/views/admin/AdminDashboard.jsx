@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/scope */
 import React from 'react';
 import { FaUsers } from 'react-icons/fa';
 import { FaCartShopping } from 'react-icons/fa6';
@@ -6,7 +7,6 @@ import Chart from 'react-apexcharts';
 import { Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
-  // Data for Chart
   const state = {
     options: {
       color: ['#181ee8', '#181ee8'],
@@ -226,32 +226,32 @@ const AdminDashboard = () => {
               {[1, 2, 3, 4, 5].map((d, i) => (
                 <tr key={i}>
                   <td
-                    scope='row'
                     className='py-3 px-4 font-medium whitespace-nowrap'
+                    scope='row'
                   >
                     123
                   </td>
                   <td
-                    scope='row'
                     className='py-3 px-4 font-medium whitespace-nowrap'
+                    scope='row'
                   >
                     100€
                   </td>
                   <td
-                    scope='row'
                     className='py-3 px-4 font-medium whitespace-nowrap'
+                    scope='row'
                   >
                     Pending
                   </td>
                   <td
-                    scope='row'
                     className='py-3 px-4 font-medium whitespace-nowrap'
+                    scope='row'
                   >
                     Pending
                   </td>
                   <td
-                    scope='row'
                     className='py-3 px-4 font-medium whitespace-nowrap'
+                    scope='row'
                   >
                     <Link>View</Link>
                   </td>

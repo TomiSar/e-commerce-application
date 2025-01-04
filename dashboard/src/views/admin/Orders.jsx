@@ -47,11 +47,11 @@ const Orders = () => {
                 <div className='py-3 w-[25%] font-medium whitespace-nowrap'>
                   #12345
                 </div>
-                <div className='py-3 w-[13%] font-medium'>123€</div>
+                <div className='py-3 w-[13%] font-medium'>1234€</div>
                 <div className='py-3 w-[18%] font-medium'>Pending</div>
                 <div className='py-3 w-[18%] font-medium'>Pending</div>
                 <div className='py-3 w-[18%] font-medium'>
-                  <Link>View</Link>
+                  <Link to='/admin/dashboard/order/details/3'>View</Link>
                 </div>
                 <div
                   className='py-3 w-[8%] font-medium'
@@ -72,7 +72,7 @@ const Orders = () => {
                   <div className='py-3 w-[25%] font-medium whitespace-nowrap pl-3'>
                     #23456
                   </div>
-                  <div className='py-3 w-[13%] font-medium'>234€</div>
+                  <div className='py-3 w-[13%] font-medium'>2345€</div>
                   <div className='py-3 w-[18%] font-medium'>Pending</div>
                   <div className='py-3 w-[18%] font-medium'>Pending</div>
                 </div>
@@ -80,7 +80,7 @@ const Orders = () => {
                   <div className='py-3 w-[25%] font-medium whitespace-nowrap pl-3'>
                     #34567
                   </div>
-                  <div className='py-3 w-[13%] font-medium'>456€</div>
+                  <div className='py-3 w-[13%] font-medium'>4567€</div>
                   <div className='py-3 w-[18%] font-medium'>Pending</div>
                   <div className='py-3 w-[18%] font-medium'>Pending</div>
                 </div>
@@ -91,7 +91,7 @@ const Orders = () => {
                 <div className='py-3 w-[25%] font-medium whitespace-nowrap'>
                   #12345
                 </div>
-                <div className='py-3 w-[13%] font-medium'>123€</div>
+                <div className='py-3 w-[13%] font-medium'>1243€</div>
                 <div className='py-3 w-[18%] font-medium'>Pending</div>
                 <div className='py-3 w-[18%] font-medium'>Pending</div>
                 <div className='py-3 w-[18%] font-medium'>
@@ -116,7 +116,7 @@ const Orders = () => {
                   <div className='py-3 w-[25%] font-medium whitespace-nowrap pl-3'>
                     #23456
                   </div>
-                  <div className='py-3 w-[13%] font-medium'>234€</div>
+                  <div className='py-3 w-[13%] font-medium'>2345€</div>
                   <div className='py-3 w-[18%] font-medium'>Pending</div>
                   <div className='py-3 w-[18%] font-medium'>Pending</div>
                 </div>
@@ -124,7 +124,7 @@ const Orders = () => {
                   <div className='py-3 w-[25%] font-medium whitespace-nowrap pl-3'>
                     #34567
                   </div>
-                  <div className='py-3 w-[13%] font-medium'>456€</div>
+                  <div className='py-3 w-[13%] font-medium'>4567€</div>
                   <div className='py-3 w-[18%] font-medium'>Pending</div>
                   <div className='py-3 w-[18%] font-medium'>Pending</div>
                 </div>
@@ -135,7 +135,7 @@ const Orders = () => {
                 <div className='py-3 w-[25%] font-medium whitespace-nowrap'>
                   #12345
                 </div>
-                <div className='py-3 w-[13%] font-medium'>123€</div>
+                <div className='py-3 w-[13%] font-medium'>1234€</div>
                 <div className='py-3 w-[18%] font-medium'>Pending</div>
                 <div className='py-3 w-[18%] font-medium'>Pending</div>
                 <div className='py-3 w-[18%] font-medium'>
@@ -160,7 +160,7 @@ const Orders = () => {
                   <div className='py-3 w-[25%] font-medium whitespace-nowrap pl-3'>
                     #23456
                   </div>
-                  <div className='py-3 w-[13%] font-medium'>234€</div>
+                  <div className='py-3 w-[13%] font-medium'>2345€</div>
                   <div className='py-3 w-[18%] font-medium'>Pending</div>
                   <div className='py-3 w-[18%] font-medium'>Pending</div>
                 </div>
@@ -168,7 +168,7 @@ const Orders = () => {
                   <div className='py-3 w-[25%] font-medium whitespace-nowrap pl-3'>
                     #34567
                   </div>
-                  <div className='py-3 w-[13%] font-medium'>456€</div>
+                  <div className='py-3 w-[13%] font-medium'>4567€</div>
                   <div className='py-3 w-[18%] font-medium'>Pending</div>
                   <div className='py-3 w-[18%] font-medium'>Pending</div>
                 </div>
@@ -179,7 +179,7 @@ const Orders = () => {
                 <div className='py-3 w-[25%] font-medium whitespace-nowrap'>
                   #12345
                 </div>
-                <div className='py-3 w-[13%] font-medium'>123€</div>
+                <div className='py-3 w-[13%] font-medium'>1234€</div>
                 <div className='py-3 w-[18%] font-medium'>Pending</div>
                 <div className='py-3 w-[18%] font-medium'>Pending</div>
                 <div className='py-3 w-[18%] font-medium'>
@@ -204,7 +204,7 @@ const Orders = () => {
                   <div className='py-3 w-[25%] font-medium whitespace-nowrap pl-3'>
                     #23456
                   </div>
-                  <div className='py-3 w-[13%] font-medium'>234€</div>
+                  <div className='py-3 w-[13%] font-medium'>2345€</div>
                   <div className='py-3 w-[18%] font-medium'>Pending</div>
                   <div className='py-3 w-[18%] font-medium'>Pending</div>
                 </div>
@@ -212,7 +212,7 @@ const Orders = () => {
                   <div className='py-3 w-[25%] font-medium whitespace-nowrap pl-3'>
                     #34567
                   </div>
-                  <div className='py-3 w-[13%] font-medium'>456€</div>
+                  <div className='py-3 w-[13%] font-medium'>4567€</div>
                   <div className='py-3 w-[18%] font-medium'>Pending</div>
                   <div className='py-3 w-[18%] font-medium'>Pending</div>
                 </div>
