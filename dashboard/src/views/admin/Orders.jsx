@@ -8,7 +8,7 @@ const Orders = () => {
   const [searchValue, setSearchValue] = useState('');
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [show, setShow] = useState(false);
-  //   const state = true;
+
   return (
     <div className='px-2 lg:px-7 pt-5'>
       <div className='w-full p-4 bg-[#6a5fdf] rounded-md'>
