@@ -3,7 +3,7 @@ import { FaEye } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Pagination from '../Pagination';
 
-const Sellers = () => {
+const DeactiveSellers = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState('');
   const [itemsPerPage, setItemsPerPage] = useState(5);
@@ -11,7 +11,7 @@ const Sellers = () => {
 
   return (
     <div className='px-2 lg:px-7 pt-5'>
-      <h1 className='text-[20px] font-bold mb-3'>Seller</h1>
+      <h1 className='text-[20px] font-bold mb-3'>Deactive Sellers</h1>
       <div className='w-full p-4 bg-[#6a5fdf] rounded-md'>
         <div className='flex justify-between items-center'>
           <select
@@ -44,19 +44,13 @@ const Sellers = () => {
                   Name
                 </th>
                 <th scope='col' className='py-3 px-4'>
-                  Shop Name
+                  Email
                 </th>
                 <th scope='col' className='py-3 px-4'>
                   Payment Status
                 </th>
                 <th scope='col' className='py-3 px-4'>
-                  Email
-                </th>
-                <th scope='col' className='py-3 px-4'>
-                  Division
-                </th>
-                <th scope='col' className='py-3 px-4'>
-                  District
+                  Status
                 </th>
                 <th scope='col' className='py-3 px-4'>
                   Action
@@ -92,31 +86,19 @@ const Sellers = () => {
                     scope='row'
                     className='py-1 px-4 font-medium whitespace-nowrap'
                   >
-                    Easy Shop
-                  </td>
-                  <td
-                    scope='row'
-                    className='py-1 px-4 font-medium whitespace-nowrap'
-                  >
-                    <span>Pending</span>
-                  </td>
-                  <td
-                    scope='row'
-                    className='py-1 px-4 font-medium whitespace-nowrap'
-                  >
                     admin@email.com
                   </td>
                   <td
                     scope='row'
                     className='py-1 px-4 font-medium whitespace-nowrap'
                   >
-                    USA
+                    <span>Active</span>
                   </td>
                   <td
                     scope='row'
                     className='py-1 px-4 font-medium whitespace-nowrap'
                   >
-                    San Francisco
+                    <span>Deactive</span>
                   </td>
                   <td
                     scope='row'
@@ -151,4 +133,4 @@ const Sellers = () => {
   );
 };
 
-export default Sellers;
+export default DeactiveSellers;
