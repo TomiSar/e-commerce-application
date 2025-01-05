@@ -7,7 +7,10 @@ export const authMiddleware = async (req, res, next) => {
     return res.status(409).json({ error: 'Please Login First' });
   } else {
     try {
-      const decodedToken = await jwt.verify(accessToken, process.env.SECRET);
+      const decodedToken = await jwt.verify(
+        accessToken,
+        process.env.JWT_SECRET
+      );
       req.role = decodedToken.role;
       req.id = decodedToken.id;
       next();

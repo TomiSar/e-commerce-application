@@ -1,4 +1,4 @@
-### Create new Vite project, Install packages and start
+### Create new React project, Install packages and start
 
 ```
 npx create-react-app e-commerce-application
@@ -14,9 +14,12 @@ npx create-react-app e-commerce-application
 - MongoDB
 - Tailwind CSS
 
+### Run frontend / backend
+- npm run start  (localhost:3000)
+- npm run server (localhost:5000)
 
 ### Installation packages/dependencies (backend)
-
+- npm i (all)
 - npm i express
 - npm i bcrypt 
 - npm i body-parser
@@ -34,7 +37,7 @@ npx create-react-app e-commerce-application
 
 
 ### Installation packages/dependencies (dashboard)
-
+- npm i --legacy-peer-deps (all)
 - npm i apexcharts --legacy-peer-deps
 - npm i react-apexcharts --legacy-peer-deps
 - npm i axios --legacy-peer-deps
