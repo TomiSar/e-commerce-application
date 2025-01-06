@@ -100,7 +100,7 @@ const SellerDashboard = () => {
       <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-7'>
         <div className='flex justify-between items-center p-5 bg-[#fae8e8] rounded-md gap-3'>
           <div className='flex flex-col justify-start items-start text-[#5c5a5a]'>
-            <h2 className='text-3xl font-bold'>$3434</h2>
+            <h2 className='text-3xl font-bold'>1234€</h2>
             <span className='text-md font-medium'>Total Salse</span>
           </div>
 
@@ -180,7 +180,6 @@ const SellerDashboard = () => {
                     <div className='flex justify-between items-center mb-2'>
                       <Link className='text-md font-normal'>Seller</Link>
                       <time className='mb-1 text-sm font-normal sm:order-last sm:mb-0'>
-                        {' '}
                         2 day ago
                       </time>
                     </div>
@@ -202,7 +201,6 @@ const SellerDashboard = () => {
                     <div className='flex justify-between items-center mb-2'>
                       <Link className='text-md font-normal'>Admin</Link>
                       <time className='mb-1 text-sm font-normal sm:order-last sm:mb-0'>
-                        {' '}
                         2 day ago
                       </time>
                     </div>
@@ -300,7 +298,7 @@ const SellerDashboard = () => {
                     className='py-3 px-4 font-medium whitespace-nowrap'
                     scope='row'
                   >
-                    <Link>View</Link>{' '}
+                    <Link>View</Link>
                   </td>
                 </tr>
               ))}
