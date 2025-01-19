@@ -1,5 +1,4 @@
 import { lazy } from 'react';
-
 const Home = lazy(() => import('../../views/Home'));
 const SellerDashboard = lazy(() =>
   import('../../views/seller/SellerDashboard')
@@ -9,6 +8,8 @@ const Products = lazy(() => import('../../views/seller/Products'));
 const DiscountProducts = lazy(() =>
   import('../../views/seller/DiscountProducts')
 );
+const Orders = lazy(() => import('../../views/seller/Orders'));
+const Payments = lazy(() => import('../../views/seller/Payments'));
 
 export const sellerRoutes = [
   {
@@ -19,21 +20,37 @@ export const sellerRoutes = [
   {
     path: '/seller/dashboard',
     element: <SellerDashboard />,
-    ability: ['seller'],
+    role: 'seller',
+    status: 'active',
   },
   {
     path: '/seller/dashboard/add-product',
     element: <AddProduct />,
-    ability: ['seller'],
+    role: 'seller',
+    status: 'active',
   },
   {
     path: '/seller/dashboard/products',
     element: <Products />,
-    ability: ['seller'],
+    role: 'seller',
+    status: 'active',
   },
   {
     path: '/seller/dashboard/discount-product',
     element: <DiscountProducts />,
-    ability: ['seller'],
+    role: 'seller',
+    status: 'active',
+  },
+  {
+    path: '/seller/dashboard/orders',
+    element: <Orders />,
+    role: 'seller',
+    ability: ['active', 'deactive'],
+  },
+  {
+    path: '/seller/dashboard/payments',
+    element: <Payments />,
+    role: 'seller',
+    status: 'active',
   },
 ];

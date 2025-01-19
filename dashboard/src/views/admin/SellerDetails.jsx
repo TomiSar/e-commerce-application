@@ -89,7 +89,7 @@ const SellerDetails = () => {
                 <option value='active'>Active</option>
                 <option value='deactive'>Deactive</option>
               </select>
-              <button className='bg-red-500 w-[170px] hover:shadow-red-500/40 hover:shadow-md text-white rounded-md px-7 py-2'>
+              <button className='bg-green-500 w-[170px] hover:shadow-green-500/40 hover:shadow-md text-white rounded-md px-7 py-2'>
                 Submit
               </button>
             </div>
