@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { IoMdImages } from 'react-icons/io';
+import React, { useEffect, useState } from 'react';
+import { IoMdCloseCircle, IoMdImages } from 'react-icons/io';
 import { Link } from 'react-router-dom';
-import { IoMdCloseCircle } from 'react-icons/io';
 
-const AddProduct = () => {
+const EditProduct = () => {
   const categories = [
     {
       id: 1,
@@ -67,50 +66,43 @@ const AddProduct = () => {
     }
   };
 
-  const imageHandle = (e) => {
-    const files = e.target.files;
-    const length = files.length;
-    if (length > 0) {
-      setImages([...images, ...files]);
-      let imageUrl = [];
-      for (let i = 0; i < length; i++) {
-        imageUrl.push({ url: URL.createObjectURL(files[i]) });
-      }
-      setImageShow([...imageShow, ...imageUrl]);
+  const changeImage = (img, files) => {
+    if (files.length > 0) {
+      console.log(img);
+      console.log(files[0]);
     }
   };
 
-  const changeImage = (img, index) => {
-    if (img) {
-      let tempUrl = imageShow;
-      let tempImages = images;
-
-      tempImages[index] = img;
-      tempUrl[index] = { url: URL.createObjectURL(img) };
-      setImageShow([...tempUrl]);
-      setImages([...tempImages]);
-    }
-  };
-
-  const removeImage = (i) => {
-    const filterImage = images.filter((img, index) => index !== i);
-    const filterImageUrl = imageShow.filter((img, index) => index !== i);
-    setImages(filterImage);
-    setImageShow(filterImageUrl);
-  };
+  useEffect(() => {
+    setState({
+      name: 'Mens tshirt',
+      description: 'Utilities for controlling how',
+      discount: 5,
+      price: 255,
+      brand: 'Easy',
+      stock: 10,
+    });
+    setCategory('T-shirt');
+    setImageShow([
+      'http://localhost:3000/images/admin.jpg',
+      'http://localhost:3000/images/demo.jpg',
+      'http://localhost:3000/images/seller.png',
+    ]);
+  }, []);
 
   return (
     <div className='px-2 lg:px-7 pt-5'>
       <div className='w-full p-4 bg-[#6a5fdf] rounded-md'>
         <div className='flex justify-between items-center pb-4'>
-          <h1 className='text-[#d0d2d6] text-xl font-semibold'>Add Product</h1>
+          <h1 className='text-[#d0d2d6] text-xl font-semibold'>Edit Product</h1>
           <Link
-            className='bg-blue-500 hover:shadow-blue-500/50 hover:shadow-lg text-white rounded-md px-7 py-2 my-2 '
             to='/seller/dashboard/products'
+            className='bg-blue-500 hover:shadow-blue-500/50 hover:shadow-lg text-white rounded-md px-7 py-2 my-2'
           >
             All Product
           </Link>
         </div>
+
         <div>
           <form>
             <div className='flex flex-col mb-3 md:flex-row gap-4 w-full text-[#d0d2d6]'>
@@ -118,25 +110,24 @@ const AddProduct = () => {
                 <label htmlFor='name'>Product Name</label>
                 <input
                   className='px-4 py-2 focus:border-indigo-500 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]'
+                  id='name'
                   name='name'
                   type='text'
-                  id='name'
-                  placeholder='Product Name'
-                  value={state.name}
                   onChange={inputHandle}
+                  value={state.name}
+                  placeholder='Product Name'
                 />
               </div>
-
               <div className='flex flex-col w-full gap-1'>
                 <label htmlFor='brand'>Product Brand</label>
                 <input
                   className='px-4 py-2 focus:border-indigo-500 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]'
                   id='brand'
-                  type='text'
                   name='brand'
-                  placeholder='Brand Name'
-                  value={state.brand}
+                  type='text'
                   onChange={inputHandle}
+                  value={state.brand}
+                  placeholder='Product Name'
                 />
               </div>
             </div>
@@ -250,49 +241,22 @@ const AddProduct = () => {
             </div>
             <div className='grid lg:grid-cols-4 grid-cols-1 md:grid-cols-3 sm:grid-cols-2 sm:gap-4 md:gap-4 gap-3 w-full text-[#d0d2d6] mb-4'>
               {imageShow.map((img, i) => (
-                <div className='h-[180px] relative' key={i}>
+                <div key={i}>
                   <label htmlFor={i}>
-                    <img
-                      className='w-full h-full rounded-sm'
-                      src={img.url}
-                      alt=''
-                    />
+                    <img src={img} alt='' />
                   </label>
                   <input
-                    className='hidden'
-                    id={i}
+                    onChange={(e) => changeImage(img, e.target.files)}
                     type='file'
-                    onChange={(e) => changeImage(e.target.files[0], i)}
+                    id={i}
+                    className='hidden'
                   />
-                  <span
-                    className='p-2 z-10 cursor-pointer bg-slate-700 hover:shadow-lg hover:shadow-slate-400/50 text-white absolute top-1 right-1 rounded-full'
-                    onClick={() => removeImage(i)}
-                  >
-                    <IoMdCloseCircle />
-                  </span>
                 </div>
               ))}
-
-              <label
-                className='flex justify-center items-center flex-col h-[180px] cursor-pointer border border-dashed hover:border-slate-950 w-full text-[#d0d2d6]'
-                htmlFor='image'
-              >
-                <span>
-                  <IoMdImages />
-                </span>
-                <span>Select Image </span>
-              </label>
-              <input
-                className='hidden'
-                onChange={imageHandle}
-                multiple
-                type='file'
-                id='image'
-              />
             </div>
             <div className='flex'>
               <button className='bg-green-600  hover:shadow-green-500/40 hover:shadow-md text-white rounded-md px-7 py-2 my-2'>
-                Add Product
+                Save Changes
               </button>
             </div>
           </form>
@@ -302,4 +266,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

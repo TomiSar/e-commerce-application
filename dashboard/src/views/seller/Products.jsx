@@ -87,19 +87,19 @@ const Products = () => {
                     className='py-1 px-4 font-medium whitespace-nowrap'
                     scope='row'
                   >
-                    Tshirt
+                    T-shirt
                   </td>
                   <td
                     className='py-1 px-4 font-medium whitespace-nowrap'
                     scope='row'
                   >
-                    Veirdo
+                    Weirdo
                   </td>
                   <td
                     className='py-1 px-4 font-medium whitespace-nowrap'
                     scope='row'
                   >
-                    $232
+                    234€
                   </td>
                   <td
                     scope='row'
@@ -119,7 +119,10 @@ const Products = () => {
                     className='py-1 px-4 font-medium whitespace-nowrap'
                   >
                     <div className='flex justify-start items-center gap-4'>
-                      <Link className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50'>
+                      <Link
+                        className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50'
+                        to={`/seller/dashboard/edit-product/32`}
+                      >
                         <FaEdit />
                       </Link>
                       <Link className='p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50'>

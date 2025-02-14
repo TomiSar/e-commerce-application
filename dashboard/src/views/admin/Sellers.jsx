@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/scope */
 import React, { useState } from 'react';
 import { FaEye } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
