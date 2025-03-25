@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
 import Admin from '../models/adminModel.js';
+import Seller from '../models/sellerModel.js';
+import SellerCustomer from '../models/chat/sellerCustomerModel.js';
 import { responseReturn } from '../utils/response.js';
 import { createJwt } from '../utils/createJwt.js';
 
@@ -33,6 +35,39 @@ const adminLogin = async (req, res) => {
   }
 };
 
+const sellerRegister = async (req, res) => {
+  const { email, name, password } = req.body;
+  // console.log(req.body);
+  try {
+    const user = await Seller.findOne({ email });
+    if (user) {
+      responseReturn(res, 404, { error: 'Email Already Exists' });
+    } else {
+      const seller = await Seller.create({
+        name,
+        email,
+        password: await bcrypt.hash(password, 10),
+        method: 'manually',
+        shopInfo: {},
+      });
+      console.log(seller);
+      await SellerCustomer.create({ myId: seller.id });
+      const token = await createJwt({ id: seller.id, role: seller.role });
+      res.cookie('accessToken', token, {
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      });
+
+      responseReturn(res, 201, {
+        token,
+        message: 'Seller registration successful',
+      });
+    }
+  } catch (error) {
+    // console.log(error);
+    responseReturn(res, 500, { error: 'Internal Server Error' });
+  }
+};
+
 const getUser = async (req, res) => {
   const { id, role } = req;
 
@@ -48,4 +83,4 @@ const getUser = async (req, res) => {
   }
 };
 
-export { adminLogin, getUser };
+export { adminLogin, getUser, sellerRegister };

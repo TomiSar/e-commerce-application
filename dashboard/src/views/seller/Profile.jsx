@@ -57,11 +57,11 @@ const Profile = () => {
                 </span>
                 <div className='flex gap-2'>
                   <span>Name : </span>
-                  <span>Ariyan Khan</span>
+                  <span>Admin Dude</span>
                 </div>
                 <div className='flex gap-2'>
                   <span>Email : </span>
-                  <span>ariyan@gmail.com</span>
+                  <span>admin@gmail.com</span>
                 </div>
                 <div className='flex gap-2'>
                   <span>Role : </span>

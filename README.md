@@ -1,12 +1,12 @@
-### Create new React project, Install packages and start
+## Create new React project, Install packages and start
 
 ```
 npx create-react-app e-commerce-application
 ```
 
-### Tech Stack
+## Tech Stack
 
-- React.js,
+- React.js
 - Redux
 - Hooks
 - Node.js
@@ -14,29 +14,31 @@ npx create-react-app e-commerce-application
 - MongoDB
 - Tailwind CSS
 
-### Run frontend / backend
-- npm run start  (localhost:3000)
-- npm run server (localhost:5000)
+## Run application backend (cd backend) / frontend (cd dashboard)
 
-### Installation packages/dependencies (backend)
+- npm run server (localhost:5000)
+- npm run start (localhost:3000)
+
+## Installation packages/dependencies (backend)
+
 - npm i (all)
 - npm i express
-- npm i bcrypt 
+- npm i bcrypt
 - npm i body-parser
 - npm i cloudinary
 - npm i cookie-parser
 - npm i cors
 - npm i dotenv
 - npm i formidable
-- npm i jsonwebtoken 
+- npm i jsonwebtoken
 - npm i moment
 - npm i mongoose
 - npm i socket.io
 - npm i stripe
 - npm i uuid
 
+## Installation packages/dependencies (dashboard)
 
-### Installation packages/dependencies (dashboard)
 - npm i --legacy-peer-deps (all)
 - npm i apexcharts --legacy-peer-deps
 - npm i react-apexcharts --legacy-peer-deps
@@ -52,22 +54,15 @@ npx create-react-app e-commerce-application
 - npm i redux-thunk --legacy-peer-deps
 - npm i socket.io-client --legacy-peer-deps
 - npm i react-router-dom -legacy-peer-deps
-- npm i -D tailwindcss --legacy-peer-deps
-- npx tailwindcss init
 
-### Documentation
+## Documentation
 
-- https://tailwindcss.com/docs/guides/create-react-app
-- https://react-icons.github.io/react-icons/
-- https://bcrypt-generator.com/
+## Environment Variables (Create .env file in the root of project with following value)
 
-### Stripe CLI
+<span style="font-size: larger;">MONGO_URI='mongodb+srv://{username}:{password}@{username}.jb7l6.mongodb.net/{database}'</span>
 
-### Set Up Environment Variables
+<span style="font-size: larger;">JWT_SECRET='JWT_SECRET'</span>
 
-- Create a new file named .env in the root of your project and add the following content:
+<span style="font-size: larger;">BASE_URL='http://localhost:3000'</span>
 
-### Start application
-
-- npm run dev (front end)
-- npx convex dev (back end)
+<span style="font-size: larger;">PORT=5000</span>
