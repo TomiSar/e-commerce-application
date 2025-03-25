@@ -19,7 +19,7 @@ export const adminLogin = createAsyncThunk(
   }
 );
 
-export const seller_register = createAsyncThunk(
+export const sellerRegister = createAsyncThunk(
   'auth/seller_register',
   async (info, { rejectWithValue, fulfillWithValue }) => {
     try {
@@ -27,8 +27,26 @@ export const seller_register = createAsyncThunk(
       const { data } = await api.post('/seller-register', info, {
         withCredentials: true,
       });
-      // localStorage.setItem('accessToken',data.token)
+      localStorage.setItem('accessToken', data.token);
+      // console.log(data);
+      return fulfillWithValue(data);
+    } catch (error) {
+      // console.log(error.response.data)
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const sellerLogin = createAsyncThunk(
+  'auth/seller_login',
+  async (info, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      console.log(info);
+      const { data } = await api.post('/seller-login', info, {
+        withCredentials: true,
+      });
       console.log(data);
+      localStorage.setItem('accessToken', data.token);
       return fulfillWithValue(data);
     } catch (error) {
       // console.log(error.response.data)
@@ -60,6 +78,30 @@ export const authReducer = createSlice({
         state.errorMessage = payload.error;
       })
       .addCase(adminLogin.fulfilled, (state, { payload }) => {
+        state.loader = false;
+        state.successMessage = payload.message;
+      })
+
+      .addCase(sellerLogin.pending, (state, { payload }) => {
+        state.loader = true;
+      })
+      .addCase(sellerLogin.rejected, (state, { payload }) => {
+        state.loader = false;
+        state.errorMessage = payload.error;
+      })
+      .addCase(sellerLogin.fulfilled, (state, { payload }) => {
+        state.loader = false;
+        state.successMessage = payload.message;
+      })
+
+      .addCase(sellerRegister.pending, (state, { payload }) => {
+        state.loader = true;
+      })
+      .addCase(sellerRegister.rejected, (state, { payload }) => {
+        state.loader = false;
+        state.errorMessage = payload.error;
+      })
+      .addCase(sellerRegister.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.successMessage = payload.message;
       });

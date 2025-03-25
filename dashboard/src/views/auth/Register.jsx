@@ -1,35 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaGithub, FaGoogle, FaFacebook } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { PropagateLoader } from 'react-spinners';
 import { overrideStyle } from '../../utils/utils';
-import { seller_register } from '../../store/Reducers/authReducer';
+import { sellerRegister, messageClear } from '../../store/Reducers/authReducer';
+import toast from 'react-hot-toast';
 
 const Register = () => {
-  const dispatch = useDispatch();
-
-  const { loader } = useSelector((state) => state.auth);
-
-  const [user, setUser] = useState({
+  const [state, setState] = useState({
     name: '',
     email: '',
     password: '',
   });
 
+  const dispatch = useDispatch();
+  const { loader, successMessage, errorMessage } = useSelector(
+    (state) => state.auth
+  );
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUser({
-      ...user,
+    setState({
+      ...state,
       [name]: value,
     });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // console.log('Submit with Data: ', user);
-    dispatch(seller_register(user));
+    // console.log('Submit with Data: ', state);
+    dispatch(sellerRegister(state));
   };
+
+  useEffect(() => {
+    if (successMessage) {
+      toast.success(successMessage, {
+        position: 'bottom-right',
+        autoClose: 2000,
+      });
+      dispatch(messageClear());
+    }
+    if (errorMessage) {
+      toast.error(errorMessage, { position: 'bottom-right', autoClose: 2000 });
+      dispatch(messageClear());
+    }
+  }, [successMessage, errorMessage, dispatch]);
 
   return (
     <div className='min-w-screen min-h-screen bg-[#cdcae9] flex justify-center items-center'>
@@ -51,7 +67,7 @@ const Register = () => {
                 id='name'
                 required
                 onChange={handleChange}
-                value={user.name}
+                value={state.name}
               />
             </div>
             <div className='flex flex-col w-full gap-1 mb-3'>
@@ -64,7 +80,7 @@ const Register = () => {
                 id='email'
                 required
                 onChange={handleChange}
-                value={user.email}
+                value={state.email}
               />
             </div>
             <div className='flex flex-col w-full gap-1 mb-3'>
@@ -77,7 +93,7 @@ const Register = () => {
                 id='password'
                 required
                 onChange={handleChange}
-                value={user.password}
+                value={state.password}
               />
             </div>
             <div className='flex items-center w-full gap-3 mb-3'>
