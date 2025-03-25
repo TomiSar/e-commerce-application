@@ -8,7 +8,7 @@ import { createJwt } from '../utils/createJwt.js';
 const adminLogin = async (req, res) => {
   const { email, password } = req.body;
 
-  console.log(email, password);
+  console.log(req.body);
 
   try {
     const admin = await Admin.findOne({ email }).select('+password');
@@ -68,6 +68,35 @@ const sellerRegister = async (req, res) => {
   }
 };
 
+const sellerLogin = async (req, res) => {
+  const { email, password } = req.body;
+  // console.log(req.body);
+  try {
+    const seller = await Seller.findOne({ email }).select('+password');
+    console.log(seller);
+    if (seller) {
+      const match = await bcrypt.compare(password, seller.password);
+
+      if (match) {
+        const token = await createJwt({
+          id: seller.id,
+          role: seller.role,
+        });
+        res.cookie('accessToken', token, {
+          expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        });
+        responseReturn(res, 200, { token, message: 'Login successful' });
+      } else {
+        responseReturn(res, 404, { error: 'Wrong password' });
+      }
+    } else {
+      responseReturn(res, 404, { error: 'Email not found' });
+    }
+  } catch (error) {
+    responseReturn(res, 500, { error: error.message });
+  }
+};
+
 const getUser = async (req, res) => {
   const { id, role } = req;
 
@@ -83,4 +112,4 @@ const getUser = async (req, res) => {
   }
 };
 
-export { adminLogin, getUser, sellerRegister };
+export { adminLogin, getUser, sellerRegister, sellerLogin };

@@ -45,8 +45,8 @@ export const sellerLogin = createAsyncThunk(
       const { data } = await api.post('/seller-login', info, {
         withCredentials: true,
       });
-      console.log(data);
       localStorage.setItem('accessToken', data.token);
+      // console.log(data);
       return fulfillWithValue(data);
     } catch (error) {
       // console.log(error.response.data)
