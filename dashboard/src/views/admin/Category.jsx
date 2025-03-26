@@ -8,9 +8,11 @@ import { PropagateLoader } from 'react-spinners';
 import { overrideStyle } from '../../utils/utils';
 import {
   categoryAdd,
+  categoryGet,
   messageClear,
 } from '../../store/Reducers/categoryReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import Search from '../components/Search';
 import toast from 'react-hot-toast';
 
 const Category = () => {
@@ -21,7 +23,7 @@ const Category = () => {
   const [image, setImage] = useState('');
 
   const dispatch = useDispatch();
-  const { loader, successMessage, errorMessage } = useSelector(
+  const { loader, successMessage, errorMessage, categories } = useSelector(
     (state) => state.category
   );
 
@@ -67,6 +69,15 @@ const Category = () => {
     }
   }, [successMessage, errorMessage, dispatch]);
 
+  useEffect(() => {
+    const obj = {
+      itemsPerPage: parseInt(itemsPerPage),
+      currentPage: parseInt(currentPage),
+      searchValue,
+    };
+    dispatch(categoryGet(obj));
+  }, [itemsPerPage, currentPage, searchValue, dispatch]);
+
   return (
     <div className='px-2 lg:px-7 pt-5'>
       <div className='flex lg:hidden justify-between items-center mb-5 p-4 bg-[#6a5fdf] rounded-md'>
@@ -81,21 +92,11 @@ const Category = () => {
       <div className='flex flex-wrap w-full'>
         <div className='w-full lg:w-7/12'>
           <div className='w-full p-4 bg-[#6a5fdf] rounded-md'>
-            <div className='flex justify-between items-center'>
-              <select
-                className='px-4 py-2 focus:border-indigo-500 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]'
-                onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-              >
-                <option value='5'>5</option>
-                <option value='10'>10</option>
-                <option value='20'>20</option>
-              </select>
-              <input
-                className='px-4 py-2 focus:border-indigo-500 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]'
-                type='text'
-                placeholder='search'
-              />
-            </div>
+            <Search
+              setItemsPerPage={setItemsPerPage}
+              setSearchValue={setSearchValue}
+              searchValue={searchValue}
+            />
 
             <div className='relative overflow-x-auto'>
               <table className='w-full text-sm text-left text-[#d0d2d6]'>
@@ -116,13 +117,13 @@ const Category = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {[1, 2, 3, 4, 5].map((d, i) => (
+                  {categories.map((d, i) => (
                     <tr key={i}>
                       <td
                         className='py-1 px-4 font-medium whitespace-nowrap'
                         scope='row'
                       >
-                        {d}
+                        {i + 1}
                       </td>
                       <td
                         className='py-1 px-4 font-medium whitespace-nowrap'
@@ -130,7 +131,7 @@ const Category = () => {
                       >
                         <img
                           className='w-[45px] h-[45px]'
-                          src={`http://localhost:3000/images/category/${d}.jpg`}
+                          src={d.image}
                           alt=''
                         />
                       </td>
@@ -138,13 +139,7 @@ const Category = () => {
                         className='py-1 px-4 font-medium whitespace-nowrap'
                         scope='row'
                       >
-                        T-Shirt
-                      </td>
-                      <td
-                        className='py-1 px-4 font-medium whitespace-nowrap'
-                        scope='row'
-                      >
-                        Pending
+                        {d.name}
                       </td>
                       <td
                         className='py-1 px-4 font-medium whitespace-nowrap'

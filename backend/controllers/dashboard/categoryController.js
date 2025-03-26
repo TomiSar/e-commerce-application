@@ -46,8 +46,36 @@ const addCategory = async (req, res) => {
   });
 };
 
-const getCategory = async () => {
-  console.log('this is working Get CATEGORY!!');
+const getCategory = async (req, res) => {
+  const { itemsPerPage, currentPage, searchValue } = req.query;
+  const skipPage = parseInt(itemsPerPage) * (parseInt(currentPage) - 1);
+  try {
+    if (searchValue && itemsPerPage && currentPage) {
+      const categories = await Category.find({
+        $text: { $search: searchValue },
+      })
+        .skip(skipPage)
+        .limit(itemsPerPage)
+        .sort({ createdAt: -1 });
+      const totalCategory = await Category.find({
+        $text: { $search: searchValue },
+      }).countDocuments();
+      responseReturn(res, 200, { categories: categories, totalCategory });
+    } else if (searchValue === '' && itemsPerPage && currentPage) {
+      const categories = await Category.find({})
+        .skip(skipPage)
+        .limit(itemsPerPage)
+        .sort({ createdAt: -1 });
+      const totalCategory = await Category.find({}).countDocuments();
+      responseReturn(res, 200, { categories: categories, totalCategory });
+    } else {
+      const categories = await Category.find({}).sort({ createdAt: -1 });
+      const totalCategory = await Category.find({}).countDocuments();
+      responseReturn(res, 200, { categories: categories, totalCategory });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 export { addCategory, getCategory };
