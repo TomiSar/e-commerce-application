@@ -8,7 +8,7 @@ import { sellerLogin, messageClear } from '../../store/Reducers/authReducer';
 import toast from 'react-hot-toast';
 
 const Login = () => {
-  const [state, setState] = useState({
+  const [user, setUser] = useState({
     email: '',
     password: '',
   });
@@ -20,8 +20,8 @@ const Login = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setState({
-      ...state,
+    setUser({
+      ...user,
       [name]: value,
     });
   };
@@ -29,19 +29,19 @@ const Login = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     // console.log('Submit with Data: ', state);
-    dispatch(sellerLogin(state));
+    dispatch(sellerLogin(user));
   };
 
   useEffect(() => {
     if (successMessage) {
       toast.success(successMessage, {
-        position: 'bottom-right',
+        position: 'top-right',
         autoClose: 2000,
       });
       dispatch(messageClear());
     }
     if (errorMessage) {
-      toast.error(errorMessage, { position: 'bottom-right', autoClose: 2000 });
+      toast.error(errorMessage, { position: 'top-right', autoClose: 2000 });
       dispatch(messageClear());
     }
   }, [successMessage, errorMessage, dispatch]);
@@ -65,7 +65,7 @@ const Login = () => {
                 id='email'
                 required
                 onChange={handleChange}
-                value={state.email}
+                value={user.email}
               />
             </div>
             <div className='flex flex-col w-full gap-1 mb-3'>
@@ -78,7 +78,7 @@ const Login = () => {
                 id='password'
                 required
                 onChange={handleChange}
-                value={state.password}
+                value={user.password}
               />
             </div>
             <button

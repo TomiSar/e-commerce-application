@@ -4,7 +4,7 @@ import api from '../../api/api';
 export const adminLogin = createAsyncThunk(
   'auth/admin_login',
   async (info, { rejectWithValue, fulfillWithValue }) => {
-    console.log(info);
+    // console.log(info);
     try {
       const { data } = await api.post('/admin-login', info, {
         withCredentials: true,
@@ -23,7 +23,7 @@ export const sellerRegister = createAsyncThunk(
   'auth/seller_register',
   async (info, { rejectWithValue, fulfillWithValue }) => {
     try {
-      console.log(info);
+      // console.log(info);
       const { data } = await api.post('/seller-register', info, {
         withCredentials: true,
       });
@@ -41,7 +41,7 @@ export const sellerLogin = createAsyncThunk(
   'auth/seller_login',
   async (info, { rejectWithValue, fulfillWithValue }) => {
     try {
-      console.log(info);
+      // console.log(info);
       const { data } = await api.post('/seller-login', info, {
         withCredentials: true,
       });

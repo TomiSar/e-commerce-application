@@ -42,14 +42,14 @@ const AdminLogin = () => {
   useEffect(() => {
     if (successMessage) {
       toast.success(successMessage, {
-        position: 'bottom-right',
+        position: 'top-right',
         autoClose: 2000,
       });
       dispatch(messageClear());
       navigate('/');
     }
     if (errorMessage) {
-      toast.error(errorMessage, { position: 'bottom-right', autoClose: 2000 });
+      toast.error(errorMessage, { position: 'top-right', autoClose: 2000 });
       dispatch(messageClear());
     }
   }, [errorMessage, successMessage, dispatch, navigate]);

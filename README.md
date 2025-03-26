@@ -19,6 +19,15 @@ npx create-react-app e-commerce-application
 - npm run server (localhost:5000)
 - npm run start (localhost:3000)
 
+## API endpoints (Admin)
+
+- http://localhost:3000/admin/login (POST Auth/login user)
+
+## API endpoints (Seller)
+
+- http://localhost:3000/register (POST register user)
+- http://localhost:3000/login (POST Auth/login user)
+
 ## Installation packages/dependencies (backend)
 
 - npm i (all)

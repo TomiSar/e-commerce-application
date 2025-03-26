@@ -8,7 +8,7 @@ import { sellerRegister, messageClear } from '../../store/Reducers/authReducer';
 import toast from 'react-hot-toast';
 
 const Register = () => {
-  const [state, setState] = useState({
+  const [user, setUser] = useState({
     name: '',
     email: '',
     password: '',
@@ -21,8 +21,8 @@ const Register = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setState({
-      ...state,
+    setUser({
+      ...user,
       [name]: value,
     });
   };
@@ -30,19 +30,19 @@ const Register = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     // console.log('Submit with Data: ', state);
-    dispatch(sellerRegister(state));
+    dispatch(sellerRegister(user));
   };
 
   useEffect(() => {
     if (successMessage) {
       toast.success(successMessage, {
-        position: 'bottom-right',
+        position: 'top-right',
         autoClose: 2000,
       });
       dispatch(messageClear());
     }
     if (errorMessage) {
-      toast.error(errorMessage, { position: 'bottom-right', autoClose: 2000 });
+      toast.error(errorMessage, { position: 'top-right', autoClose: 2000 });
       dispatch(messageClear());
     }
   }, [successMessage, errorMessage, dispatch]);
@@ -67,7 +67,7 @@ const Register = () => {
                 id='name'
                 required
                 onChange={handleChange}
-                value={state.name}
+                value={user.name}
               />
             </div>
             <div className='flex flex-col w-full gap-1 mb-3'>
@@ -80,7 +80,7 @@ const Register = () => {
                 id='email'
                 required
                 onChange={handleChange}
-                value={state.email}
+                value={user.email}
               />
             </div>
             <div className='flex flex-col w-full gap-1 mb-3'>
@@ -93,7 +93,7 @@ const Register = () => {
                 id='password'
                 required
                 onChange={handleChange}
-                value={state.password}
+                value={user.password}
               />
             </div>
             <div className='flex items-center w-full gap-3 mb-3'>

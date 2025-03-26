@@ -8,10 +8,11 @@ import { createJwt } from '../utils/createJwt.js';
 const adminLogin = async (req, res) => {
   const { email, password } = req.body;
 
-  console.log(req.body);
+  // console.log(req.body);
 
   try {
     const admin = await Admin.findOne({ email }).select('+password');
+    // console.log(admin);
     if (admin) {
       const match = await bcrypt.compare(password, admin.password);
 
@@ -31,6 +32,7 @@ const adminLogin = async (req, res) => {
       responseReturn(res, 404, { error: 'Email not found' });
     }
   } catch (error) {
+    // console.log(error);
     responseReturn(res, 500, { error: error.message });
   }
 };
@@ -39,8 +41,9 @@ const sellerRegister = async (req, res) => {
   const { email, name, password } = req.body;
   // console.log(req.body);
   try {
-    const user = await Seller.findOne({ email });
-    if (user) {
+    const seller = await Seller.findOne({ email });
+    // console.log(seller);
+    if (seller) {
       responseReturn(res, 404, { error: 'Email Already Exists' });
     } else {
       const seller = await Seller.create({
@@ -50,7 +53,6 @@ const sellerRegister = async (req, res) => {
         method: 'manually',
         shopInfo: {},
       });
-      console.log(seller);
       await SellerCustomer.create({ myId: seller.id });
       const token = await createJwt({ id: seller.id, role: seller.role });
       res.cookie('accessToken', token, {
@@ -73,7 +75,7 @@ const sellerLogin = async (req, res) => {
   // console.log(req.body);
   try {
     const seller = await Seller.findOne({ email }).select('+password');
-    console.log(seller);
+    // console.log(seller);
     if (seller) {
       const match = await bcrypt.compare(password, seller.password);
 
@@ -93,6 +95,7 @@ const sellerLogin = async (req, res) => {
       responseReturn(res, 404, { error: 'Email not found' });
     }
   } catch (error) {
+    // console.log(error);
     responseReturn(res, 500, { error: error.message });
   }
 };
