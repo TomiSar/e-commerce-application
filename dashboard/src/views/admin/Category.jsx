@@ -1,13 +1,17 @@
 /* eslint-disable jsx-a11y/scope */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Pagination from '../Pagination';
 import { FaEdit, FaImage, FaTrash } from 'react-icons/fa';
 import { IoMdCloseCircle } from 'react-icons/io';
 import { PropagateLoader } from 'react-spinners';
 import { overrideStyle } from '../../utils/utils';
-import { categoryAdd } from '../../store/Reducers/categoryReducer';
+import {
+  categoryAdd,
+  messageClear,
+} from '../../store/Reducers/categoryReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 
 const Category = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,7 +21,9 @@ const Category = () => {
   const [image, setImage] = useState('');
 
   const dispatch = useDispatch();
-  const { loader } = useSelector((state) => state.category);
+  const { loader, successMessage, errorMessage } = useSelector(
+    (state) => state.category
+  );
 
   const [state, setState] = useState({
     name: '',
@@ -41,6 +47,25 @@ const Category = () => {
     dispatch(categoryAdd(state));
     // console.log('Submit with Data: ', state);
   };
+
+  useEffect(() => {
+    if (successMessage) {
+      toast.success(successMessage, {
+        position: 'top-right',
+        autoClose: 2000,
+      });
+      dispatch(messageClear());
+      setState({
+        name: '',
+        image: '',
+      });
+      setImage('');
+    }
+    if (errorMessage) {
+      toast.error(errorMessage, { position: 'top-right', autoClose: 2000 });
+      dispatch(messageClear());
+    }
+  }, [successMessage, errorMessage, dispatch]);
 
   return (
     <div className='px-2 lg:px-7 pt-5'>
