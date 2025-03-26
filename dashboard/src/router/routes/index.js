@@ -4,7 +4,6 @@ import ProtectRoute from './ProtectRoute';
 
 export const getRoutes = () => {
   privateRoutes.forEach((route) => {
-    // console.log(route);
     route.element = <ProtectRoute route={route}>{route.element}</ProtectRoute>;
   });
 
