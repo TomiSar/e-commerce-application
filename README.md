@@ -22,11 +22,13 @@ npx create-react-app e-commerce-application
 ## API endpoints (Admin)
 
 - http://localhost:3000/admin/login (POST Auth/login user)
+- http://localhost:3000/admin/dashboard
 
 ## API endpoints (Seller)
 
 - http://localhost:3000/register (POST register user)
 - http://localhost:3000/login (POST Auth/login user)
+- http://localhost:3000/seller/dashboard
 
 ## Installation packages/dependencies (backend)
 

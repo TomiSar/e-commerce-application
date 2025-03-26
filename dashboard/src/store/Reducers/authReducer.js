@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../../api/api';
+import { jwtDecode } from 'jwt-decode';
 
 export const adminLogin = createAsyncThunk(
   'auth/admin_login',
@@ -55,6 +56,35 @@ export const sellerLogin = createAsyncThunk(
   }
 );
 
+export const getUserInfo = createAsyncThunk(
+  'auth/get_user_info',
+  async (_, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      const { data } = await api.get('/get-user', { withCredentials: true });
+      // console.log(data)
+      return fulfillWithValue(data);
+    } catch (error) {
+      // console.log(error.response.data)
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+const returnRole = (token) => {
+  if (token) {
+    const decodeToken = jwtDecode(token);
+    const expireTime = new Date(decodeToken.exp * 1000);
+    if (new Date() > expireTime) {
+      localStorage.removeItem('accessToken');
+      return '';
+    } else {
+      return decodeToken.role;
+    }
+  } else {
+    return '';
+  }
+};
+
 export const authReducer = createSlice({
   name: 'auth',
   initialState: {
@@ -62,6 +92,8 @@ export const authReducer = createSlice({
     errorMessage: '',
     loader: false,
     userInfo: '',
+    role: returnRole(localStorage.getItem('accessToken')),
+    token: localStorage.getItem('accessToken'),
   },
   reducers: {
     messageClear: (state, _) => {
@@ -80,6 +112,8 @@ export const authReducer = createSlice({
       .addCase(adminLogin.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.successMessage = payload.message;
+        state.role = returnRole(payload.token);
+        state.token = payload.token;
       })
 
       .addCase(sellerLogin.pending, (state, { payload }) => {
@@ -92,6 +126,8 @@ export const authReducer = createSlice({
       .addCase(sellerLogin.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.successMessage = payload.message;
+        state.role = returnRole(payload.token);
+        state.token = payload.token;
       })
 
       .addCase(sellerRegister.pending, (state, { payload }) => {
@@ -104,6 +140,13 @@ export const authReducer = createSlice({
       .addCase(sellerRegister.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.successMessage = payload.message;
+        state.role = returnRole(payload.token);
+        state.token = payload.token;
+      })
+
+      .addCase(getUserInfo.fulfilled, (state, { payload }) => {
+        state.loader = false;
+        state.userInfo = payload.userInfo;
       });
   },
 });

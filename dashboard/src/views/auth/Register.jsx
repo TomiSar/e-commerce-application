@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaGithub, FaGoogle, FaFacebook } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { PropagateLoader } from 'react-spinners';
@@ -18,6 +18,7 @@ const Register = () => {
   const { loader, successMessage, errorMessage } = useSelector(
     (state) => state.auth
   );
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,12 +41,13 @@ const Register = () => {
         autoClose: 2000,
       });
       dispatch(messageClear());
+      navigate('/');
     }
     if (errorMessage) {
       toast.error(errorMessage, { position: 'top-right', autoClose: 2000 });
       dispatch(messageClear());
     }
-  }, [successMessage, errorMessage, dispatch]);
+  }, [successMessage, errorMessage, dispatch, navigate]);
 
   return (
     <div className='min-w-screen min-h-screen bg-[#cdcae9] flex justify-center items-center'>
