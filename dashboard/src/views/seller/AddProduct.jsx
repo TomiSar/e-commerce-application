@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { IoMdCloseCircle } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { categoryGet } from '../../store/Reducers/categoryReducer';
+import { productAdd } from '../../store/Reducers/productReducer';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
@@ -89,6 +90,23 @@ const AddProduct = () => {
 
   const add = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append('name', state.name);
+    formData.append('description', state.description);
+    formData.append('discount', state.discount);
+    formData.append('price', state.price);
+    formData.append('brand', state.brand);
+    formData.append('stock', state.stock);
+    formData.append('category', category);
+    formData.append('name', state.name);
+    formData.append('shopName', 'EasyShop');
+
+    for (let i = 0; i < images.length; i++) {
+      formData.append('images', images[i]);
+    }
+
+    console.log(state);
+    dispatch(productAdd(formData));
   };
 
   useEffect(() => {
