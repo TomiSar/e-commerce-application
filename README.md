@@ -77,3 +77,9 @@ npx create-react-app e-commerce-application
 <span style="font-size: larger;">BASE_URL='http://localhost:3000'</span>
 
 <span style="font-size: larger;">PORT=5000</span>
+
+<span style="font-size: larger;">cloud_name='CLOUDINARY_CLOUD_NAME'</span>
+
+<span style="font-size: larger;">api_key='CLOUDINARY_API_KEY'</span>
+
+<span style="font-size: larger;">api_secret=CLOUDINARY_API_SECRET</span>
