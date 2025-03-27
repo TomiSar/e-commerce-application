@@ -47,34 +47,35 @@ const addCategory = async (req, res) => {
 };
 
 const getCategory = async (req, res) => {
-  const { itemsPerPage, currentPage, searchValue } = req.query;
-  const skipPage = parseInt(itemsPerPage) * (parseInt(currentPage) - 1);
   try {
-    if (searchValue && itemsPerPage && currentPage) {
-      const categories = await Category.find({
-        $text: { $search: searchValue },
-      })
-        .skip(skipPage)
-        .limit(itemsPerPage)
-        .sort({ createdAt: -1 });
-      const totalCategory = await Category.find({
-        $text: { $search: searchValue },
-      }).countDocuments();
-      responseReturn(res, 200, { categories: categories, totalCategory });
-    } else if (searchValue === '' && itemsPerPage && currentPage) {
-      const categories = await Category.find({})
-        .skip(skipPage)
-        .limit(itemsPerPage)
-        .sort({ createdAt: -1 });
-      const totalCategory = await Category.find({}).countDocuments();
-      responseReturn(res, 200, { categories: categories, totalCategory });
-    } else {
-      const categories = await Category.find({}).sort({ createdAt: -1 });
-      const totalCategory = await Category.find({}).countDocuments();
-      responseReturn(res, 200, { categories: categories, totalCategory });
+    let { itemsPerPage, currentPage, searchValue } = req.query;
+    itemsPerPage = parseInt(itemsPerPage) || 10;
+    currentPage = parseInt(currentPage) || 1;
+    const skipPage = itemsPerPage * (currentPage - 1);
+
+    let query = {};
+    if (searchValue) {
+      query = {
+        $or: [
+          { name: { $regex: searchValue, $options: 'i' } }, // Case-insensitive
+          { description: { $regex: searchValue, $options: 'i' } },
+        ],
+      };
     }
+
+    // Two queries in parallel
+    const [categories, totalCategory] = await Promise.all([
+      Category.find(query)
+        .skip(skipPage)
+        .limit(itemsPerPage)
+        .sort({ createdAt: -1 }),
+      Category.countDocuments(query),
+    ]);
+
+    responseReturn(res, 200, { categories, totalCategory });
   } catch (error) {
     console.log(error.message);
+    responseReturn(res, 500, { error: 'Server error' });
   }
 };
 
