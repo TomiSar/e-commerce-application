@@ -51,7 +51,10 @@ const getCategory = async (req, res) => {
     let { itemsPerPage, currentPage, searchValue } = req.query;
     itemsPerPage = parseInt(itemsPerPage) || 10;
     currentPage = parseInt(currentPage) || 1;
-    const skipPage = itemsPerPage * (currentPage - 1);
+    let skipPage = '';
+    if (itemsPerPage && currentPage) {
+      skipPage = itemsPerPage * (currentPage - 1);
+    }
 
     let query = {};
     if (searchValue) {

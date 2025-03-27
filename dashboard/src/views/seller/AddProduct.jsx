@@ -1,35 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoMdImages } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import { IoMdCloseCircle } from 'react-icons/io';
+import { useDispatch, useSelector } from 'react-redux';
+import { categoryGet } from '../../store/Reducers/categoryReducer';
 
 const AddProduct = () => {
-  const categories = [
-    {
-      id: 1,
-      name: 'Sports',
-    },
-    {
-      id: 2,
-      name: 'T-shirt',
-    },
-    {
-      id: 3,
-      name: 'Mobile',
-    },
-    {
-      id: 4,
-      name: 'Computer',
-    },
-    {
-      id: 5,
-      name: 'Watch',
-    },
-    {
-      id: 6,
-      name: 'Pant',
-    },
-  ];
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.category);
+
+  useEffect(() => {
+    dispatch(
+      categoryGet({
+        itemsPerPage: '',
+        currentPage: '',
+        searchValue: '',
+      })
+    );
+  }, [dispatch]);
 
   const [state, setState] = useState({
     name: '',
@@ -49,7 +37,7 @@ const AddProduct = () => {
 
   const [categoryShow, setCategoryShow] = useState(false);
   const [category, setCategory] = useState('');
-  const [allCategory, setAllCategory] = useState(categories);
+  const [allCategory, setAllCategory] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [images, setImages] = useState([]);
   const [imageShow, setImageShow] = useState([]);
@@ -99,6 +87,14 @@ const AddProduct = () => {
     setImageShow(filterImageUrl);
   };
 
+  const add = (e) => {
+    e.preventDefault();
+  };
+
+  useEffect(() => {
+    setAllCategory(categories);
+  }, [categories]);
+
   return (
     <div className='px-2 lg:px-7 pt-5'>
       <div className='w-full p-4 bg-[#6a5fdf] rounded-md'>
@@ -112,7 +108,7 @@ const AddProduct = () => {
           </Link>
         </div>
         <div>
-          <form>
+          <form onSubmit={add}>
             <div className='flex flex-col mb-3 md:flex-row gap-4 w-full text-[#d0d2d6]'>
               <div className='flex flex-col w-full gap-1'>
                 <label htmlFor='name'>Product Name</label>
