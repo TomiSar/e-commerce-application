@@ -1,6 +1,6 @@
 import { responseReturn } from '../../utils/response.js';
 import formidable from 'formidable';
-import Category from '../../models/categoryModel.js';
+import categoryModel from '../../models/categoryModel.js';
 import { v2 as cloudinary } from 'cloudinary';
 
 const addCategory = async (req, res) => {
@@ -27,7 +27,7 @@ const addCategory = async (req, res) => {
         });
 
         if (result) {
-          const category = await Category.create({
+          const category = await categoryModel.create({
             name,
             slug,
             image: result.url,
@@ -68,11 +68,12 @@ const getCategory = async (req, res) => {
 
     // Two queries in parallel
     const [categories, totalCategory] = await Promise.all([
-      Category.find(query)
+      categoryModel
+        .find(query)
         .skip(skipPage)
         .limit(itemsPerPage)
         .sort({ createdAt: -1 }),
-      Category.countDocuments(query),
+      categoryModel.countDocuments(query),
     ]);
 
     responseReturn(res, 200, { categories, totalCategory });

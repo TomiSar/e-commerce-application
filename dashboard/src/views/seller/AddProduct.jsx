@@ -5,8 +5,8 @@ import { IoMdCloseCircle } from 'react-icons/io';
 import { overrideStyle } from '../../utils/utils';
 import { PropagateLoader } from 'react-spinners';
 import { useDispatch, useSelector } from 'react-redux';
-import { categoryGet } from '../../store/Reducers/categoryReducer';
-import { productAdd, messageClear } from '../../store/Reducers/productReducer';
+import { getCategory } from '../../store/Reducers/categoryReducer';
+import { addProduct, messageClear } from '../../store/Reducers/productReducer';
 import toast from 'react-hot-toast';
 
 const AddProduct = () => {
@@ -18,7 +18,7 @@ const AddProduct = () => {
 
   useEffect(() => {
     dispatch(
-      categoryGet({
+      getCategory({
         itemsPerPage: '',
         currentPage: '',
         searchValue: '',
@@ -137,7 +137,7 @@ const AddProduct = () => {
     }
 
     // console.log(state);
-    dispatch(productAdd(formData));
+    dispatch(addProduct(formData));
   };
 
   useEffect(() => {
@@ -343,7 +343,7 @@ const AddProduct = () => {
                 {loader ? (
                   <PropagateLoader color='#fff' cssOverride={overrideStyle} />
                 ) : (
-                  'Add Category'
+                  'Add Product'
                 )}
               </button>
             </div>

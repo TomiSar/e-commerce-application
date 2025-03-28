@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../../api/api';
 
-export const productAdd = createAsyncThunk(
-  'product/productAdd',
+export const addProduct = createAsyncThunk(
+  'product/addProduct',
   async (product, { rejectWithValue, fulfillWithValue }) => {
     try {
       const { data } = await api.post('/product-add', product, {
         withCredentials: true,
       });
-      //   console.log(data);
+      console.log(data);
       return fulfillWithValue(data);
     } catch (error) {
       // console.log(error.response.data)
@@ -17,18 +17,18 @@ export const productAdd = createAsyncThunk(
   }
 );
 
-export const productGet = createAsyncThunk(
-  'product/productGet',
+export const getProducts = createAsyncThunk(
+  'product/getProducts',
   async (
     { itemsPerPage, currentPage, searchValue },
     { rejectWithValue, fulfillWithValue }
   ) => {
     try {
       const { data } = await api.get(
-        `/product-get?currentPage=${currentPage}&&searchValue=${searchValue}&&itemsPerPage=${itemsPerPage}`,
+        `/products-get?currentPage=${currentPage}&&searchValue=${searchValue}&&itemsPerPage=${itemsPerPage}`,
         { withCredentials: true }
       );
-      console.log(data);
+      //   console.log(data);
       return fulfillWithValue(data);
     } catch (error) {
       // console.log(error.response.data)
@@ -53,24 +53,24 @@ export const productReducer = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(productAdd.pending, (state, { payload }) => {
+      .addCase(addProduct.pending, (state, { payload }) => {
         state.loader = true;
       })
-      .addCase(productAdd.rejected, (state, { payload }) => {
+      .addCase(addProduct.rejected, (state, { payload }) => {
         state.loader = false;
         state.errorMessage = payload.error;
       })
-      .addCase(productAdd.fulfilled, (state, { payload }) => {
+      .addCase(addProduct.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.successMessage = payload.message;
-        state.products = [...state.products, payload.category];
       })
 
-      .addCase(productGet.fulfilled, (state, { payload }) => {
+      .addCase(getProducts.fulfilled, (state, { payload }) => {
         state.products = payload.products;
         state.totalProduct = payload.totalProduct;
       });
   },
 });
+
 export const { messageClear } = productReducer.actions;
 export default productReducer.reducer;

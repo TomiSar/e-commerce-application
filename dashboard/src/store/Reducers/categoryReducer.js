@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../../api/api';
 
-export const categoryAdd = createAsyncThunk(
-  'category/categoryAdd',
+export const addCategory = createAsyncThunk(
+  'category/addCategory',
   async ({ name, image }, { rejectWithValue, fulfillWithValue }) => {
     try {
       const formData = new FormData();
@@ -11,7 +11,7 @@ export const categoryAdd = createAsyncThunk(
       const { data } = await api.post('/category-add', formData, {
         withCredentials: true,
       });
-      console.log(data);
+      // console.log(data);
       return fulfillWithValue(data);
     } catch (error) {
       // console.log(error.response.data)
@@ -20,8 +20,8 @@ export const categoryAdd = createAsyncThunk(
   }
 );
 
-export const categoryGet = createAsyncThunk(
-  'category/categoryGet',
+export const getCategory = createAsyncThunk(
+  'category/getCategory',
   async (
     { itemsPerPage, currentPage, searchValue },
     { rejectWithValue, fulfillWithValue }
@@ -56,20 +56,20 @@ export const categoryReducer = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(categoryAdd.pending, (state, { payload }) => {
+      .addCase(addCategory.pending, (state, { payload }) => {
         state.loader = true;
       })
-      .addCase(categoryAdd.rejected, (state, { payload }) => {
+      .addCase(addCategory.rejected, (state, { payload }) => {
         state.loader = false;
         state.errorMessage = payload.error;
       })
-      .addCase(categoryAdd.fulfilled, (state, { payload }) => {
+      .addCase(addCategory.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.successMessage = payload.message;
         state.categories = [...state.categories, payload.category];
       })
 
-      .addCase(categoryGet.fulfilled, (state, { payload }) => {
+      .addCase(getCategory.fulfilled, (state, { payload }) => {
         state.categories = payload.categories;
         state.totalCategory = payload.totalCategory;
       });

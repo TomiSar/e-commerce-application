@@ -1,15 +1,28 @@
 /* eslint-disable jsx-a11y/scope */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Search from '../components/Search';
 import Pagination from '../Pagination';
 import { Link } from 'react-router-dom';
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProducts } from '../../store/Reducers/productReducer';
 
 const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState('');
   const [itemsPerPage, setItemsPerPage] = useState(5);
-  const [show, setShow] = useState(false);
+
+  const dispatch = useDispatch();
+  const { products, totalProduct } = useSelector((state) => state.product);
+
+  useEffect(() => {
+    const obj = {
+      itemsPerPage: parseInt(itemsPerPage),
+      currentPage: parseInt(currentPage),
+      searchValue,
+    };
+    dispatch(getProducts(obj));
+  }, [itemsPerPage, currentPage, searchValue, dispatch]);
 
   return (
     <div className='px-2 lg:px-7 pt-5'>
@@ -38,6 +51,9 @@ const Products = () => {
                   Name
                 </th>
                 <th scope='col' className='py-3 px-4'>
+                  Description
+                </th>
+                <th scope='col' className='py-3 px-4'>
                   Category
                 </th>
                 <th scope='col' className='py-3 px-4'>
@@ -59,13 +75,13 @@ const Products = () => {
             </thead>
 
             <tbody>
-              {[1, 2, 3, 4, 5].map((d, i) => (
+              {products.map((product, i) => (
                 <tr key={i}>
                   <td
                     className='py-1 px-4 font-medium whitespace-nowrap'
                     scope='row'
                   >
-                    {d}
+                    {i + 1}
                   </td>
                   <td
                     className='py-1 px-4 font-medium whitespace-nowrap'
@@ -73,7 +89,7 @@ const Products = () => {
                   >
                     <img
                       className='w-[45px] h-[45px]'
-                      src={`http://localhost:3000/images/category/${d}.jpg`}
+                      src={product.images[0]}
                       alt=''
                     />
                   </td>
@@ -81,37 +97,47 @@ const Products = () => {
                     className='py-1 px-4 font-medium whitespace-nowrap'
                     scope='row'
                   >
-                    Men Full Sleeve
+                    {product.name}
                   </td>
                   <td
                     className='py-1 px-4 font-medium whitespace-nowrap'
                     scope='row'
                   >
-                    T-shirt
+                    {product?.description?.slice(0, 20)}...
                   </td>
                   <td
                     className='py-1 px-4 font-medium whitespace-nowrap'
                     scope='row'
                   >
-                    Weirdo
+                    {product.category}
                   </td>
                   <td
                     className='py-1 px-4 font-medium whitespace-nowrap'
                     scope='row'
                   >
-                    234€
-                  </td>
-                  <td
-                    scope='row'
-                    className='py-1 px-4 font-medium whitespace-nowrap'
-                  >
-                    10%
+                    {product.brand}
                   </td>
                   <td
                     className='py-1 px-4 font-medium whitespace-nowrap'
                     scope='row'
                   >
-                    20
+                    {product.price}€
+                  </td>
+                  <td
+                    scope='row'
+                    className='py-1 px-4 font-medium whitespace-nowrap'
+                  >
+                    {product.discount === 0 ? (
+                      <span>No Discount</span>
+                    ) : (
+                      <span>{product.discount}%</span>
+                    )}
+                  </td>
+                  <td
+                    className='py-1 px-4 font-medium whitespace-nowrap'
+                    scope='row'
+                  >
+                    {product.stock}
                   </td>
 
                   <td
@@ -139,15 +165,19 @@ const Products = () => {
           </table>
         </div>
 
-        <div className='w-full flex justify-end mt-4 bottom-4 right-4'>
-          <Pagination
-            pageNumber={currentPage}
-            setPageNumber={setCurrentPage}
-            totalItem={50}
-            itemsPerPage={itemsPerPage}
-            showItem={3}
-          />
-        </div>
+        {totalProduct <= itemsPerPage ? (
+          ''
+        ) : (
+          <div className='w-full flex justify-end mt-4 bottom-4 right-4'>
+            <Pagination
+              pageNumber={currentPage}
+              setPageNumber={setCurrentPage}
+              totalItem={50}
+              itemsPerPage={itemsPerPage}
+              showItem={3}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

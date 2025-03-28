@@ -7,8 +7,8 @@ import { IoMdCloseCircle } from 'react-icons/io';
 import { PropagateLoader } from 'react-spinners';
 import { overrideStyle } from '../../utils/utils';
 import {
-  categoryAdd,
-  categoryGet,
+  addCategory,
+  getCategory,
   messageClear,
 } from '../../store/Reducers/categoryReducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -44,9 +44,9 @@ const Category = () => {
     }
   };
 
-  const addCategory = (e) => {
+  const add = (e) => {
     e.preventDefault();
-    dispatch(categoryAdd(state));
+    dispatch(addCategory(state));
     // console.log('Submit with Data: ', state);
   };
 
@@ -75,7 +75,7 @@ const Category = () => {
       currentPage: parseInt(currentPage),
       searchValue,
     };
-    dispatch(categoryGet(obj));
+    dispatch(getCategory(obj));
   }, [itemsPerPage, currentPage, searchValue, dispatch]);
 
   return (
@@ -186,7 +186,7 @@ const Category = () => {
                   <IoMdCloseCircle />
                 </div>
               </div>
-              <form onSubmit={addCategory}>
+              <form onSubmit={add}>
                 <div className='flex flex-col w-full gap-1 mb-3'>
                   <label htmlFor='name'>Category Name</label>
                   <input
