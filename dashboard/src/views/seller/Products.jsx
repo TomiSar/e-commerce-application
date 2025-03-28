@@ -147,7 +147,7 @@ const Products = () => {
                     <div className='flex justify-start items-center gap-4'>
                       <Link
                         className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50'
-                        to={`/seller/dashboard/edit-product/32`}
+                        to={`/seller/dashboard/edit-product/${product._id}`}
                       >
                         <FaEdit />
                       </Link>
