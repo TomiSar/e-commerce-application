@@ -2,13 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { IoMdImages } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import { IoMdCloseCircle } from 'react-icons/io';
+import { overrideStyle } from '../../utils/utils';
+import { PropagateLoader } from 'react-spinners';
 import { useDispatch, useSelector } from 'react-redux';
 import { categoryGet } from '../../store/Reducers/categoryReducer';
-import { productAdd } from '../../store/Reducers/productReducer';
+import { productAdd, messageClear } from '../../store/Reducers/productReducer';
+import toast from 'react-hot-toast';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
+  const { loader, successMessage, errorMessage } = useSelector(
+    (state) => state.product
+  );
 
   useEffect(() => {
     dispatch(
@@ -69,6 +75,32 @@ const AddProduct = () => {
     }
   };
 
+  useEffect(() => {
+    if (successMessage) {
+      toast.success(successMessage, {
+        position: 'top-right',
+        autoClose: 2000,
+      });
+      dispatch(messageClear());
+      setState({
+        name: '',
+        description: '',
+        discount: '',
+        price: '',
+        brand: '',
+        stock: '',
+      });
+      setImageShow([]);
+      setImages([]);
+      setCategory('');
+    }
+
+    if (errorMessage) {
+      toast.error(errorMessage, { position: 'top-right', autoClose: 2000 });
+      dispatch(messageClear());
+    }
+  }, [successMessage, errorMessage, dispatch]);
+
   const changeImage = (img, index) => {
     if (img) {
       let tempUrl = imageShow;
@@ -98,14 +130,13 @@ const AddProduct = () => {
     formData.append('brand', state.brand);
     formData.append('stock', state.stock);
     formData.append('category', category);
-    formData.append('name', state.name);
     formData.append('shopName', 'EasyShop');
 
     for (let i = 0; i < images.length; i++) {
       formData.append('images', images[i]);
     }
 
-    console.log(state);
+    // console.log(state);
     dispatch(productAdd(formData));
   };
 
@@ -305,8 +336,15 @@ const AddProduct = () => {
               />
             </div>
             <div className='flex'>
-              <button className='bg-green-600  hover:shadow-green-500/40 hover:shadow-md text-white rounded-md px-7 py-2 my-2'>
-                Add Product
+              <button
+                disabled={loader ? true : false}
+                className='bg-slate-900 w-[200px] hover:shadow-blue-300 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'
+              >
+                {loader ? (
+                  <PropagateLoader color='#fff' cssOverride={overrideStyle} />
+                ) : (
+                  'Add Category'
+                )}
               </button>
             </div>
           </form>

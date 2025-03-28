@@ -8,7 +8,7 @@ export const productAdd = createAsyncThunk(
       const { data } = await api.post('/product-add', product, {
         withCredentials: true,
       });
-      console.log(data);
+      //   console.log(data);
       return fulfillWithValue(data);
     } catch (error) {
       // console.log(error.response.data)

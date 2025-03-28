@@ -31,7 +31,7 @@ export const categoryGet = createAsyncThunk(
         `/category-get?currentPage=${currentPage}&&searchValue=${searchValue}&&itemsPerPage=${itemsPerPage}`,
         { withCredentials: true }
       );
-      console.log(data);
+      // console.log(data);
       return fulfillWithValue(data);
     } catch (error) {
       // console.log(error.response.data)
