@@ -8,6 +8,7 @@ import {
   getProduct,
   updateProduct,
   messageClear,
+  updateProductImage,
 } from '../../store/Reducers/productReducer';
 import toast from 'react-hot-toast';
 
@@ -71,8 +72,13 @@ const EditProduct = () => {
 
   const changeImage = (img, files) => {
     if (files.length > 0) {
-      console.log(img);
-      console.log(files[0]);
+      dispatch(
+        updateProductImage({
+          productId,
+          oldImage: img,
+          newImage: files[0],
+        })
+      );
     }
   };
 
@@ -122,7 +128,6 @@ const EditProduct = () => {
       productId: productId,
     };
 
-    console.log(state);
     dispatch(updateProduct(obj));
   };
 
@@ -204,7 +209,7 @@ const EditProduct = () => {
                           className={`px-4 py-2 hover:bg-indigo-500 hover:text-white hover:shadow-lg w-full cursor-pointer ${
                             category === c.name && 'bg-indigo-500'
                           }`}
-                          key={c.id}
+                          key={i._id}
                           onClick={() => {
                             setCategoryShow(false);
                             setCategory(c.name);
@@ -280,7 +285,7 @@ const EditProduct = () => {
               {imageShow &&
                 imageShow.length > 0 &&
                 imageShow.map((img, i) => (
-                  <div key={i}>
+                  <div key={i._id}>
                     <label htmlFor={i}>
                       <img src={img} alt='' />
                     </label>
