@@ -216,20 +216,20 @@ const AddProduct = () => {
                   </div>
                   <div className='pt-14'></div>
                   <div className='flex justify-start items-start flex-col h-[200px] overflow-x-scroll'>
-                    {allCategory.map((c, i) => (
+                    {allCategory.map((category, i) => (
                       <span
                         className={`px-4 py-2 hover:bg-indigo-500 hover:text-white hover:shadow-lg w-full cursor-pointer ${
-                          category === c.name && 'bg-indigo-500'
+                          category === category.name && 'bg-indigo-500'
                         }`}
-                        key={c.id}
+                        key={category._id}
                         onClick={() => {
                           setCategoryShow(false);
-                          setCategory(c.name);
+                          setCategory(category.name);
                           setSearchValue('');
                           setAllCategory(categories);
                         }}
                       >
-                        {c.name}{' '}
+                        {category.name}{' '}
                       </span>
                     ))}
                   </div>

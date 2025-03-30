@@ -34,7 +34,7 @@ const adminLogin = async (req, res) => {
       responseReturn(res, 404, { error: 'Email not found' });
     }
   } catch (error) {
-    // console.log(error);
+    // console.log(error.message);
     responseReturn(res, 500, { error: error.message });
   }
 };
@@ -67,8 +67,8 @@ const sellerRegister = async (req, res) => {
       });
     }
   } catch (error) {
-    // console.log(error);
-    responseReturn(res, 500, { error: 'Internal Server Error' });
+    // console.log(error.message);
+    responseReturn(res, 500, { error: error.message });
   }
 };
 
@@ -115,7 +115,7 @@ const getUser = async (req, res) => {
     }
   } catch (error) {
     // console.log(error.message);
-    responseReturn(res, 500, { error: 'Internal Server Error' });
+    responseReturn(res, 500, { error: error.message });
   }
 };
 

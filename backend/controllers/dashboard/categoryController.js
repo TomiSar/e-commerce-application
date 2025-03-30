@@ -40,7 +40,7 @@ const addCategory = async (req, res) => {
           responseReturn(res, 404, { error: 'Image Upload File Error' });
         }
       } catch (error) {
-        responseReturn(res, 500, { error: 'Internal Server Error' });
+        responseReturn(res, 500, { error: error.message });
       }
     }
   });
@@ -78,8 +78,8 @@ const getCategory = async (req, res) => {
 
     responseReturn(res, 200, { categories, totalCategory });
   } catch (error) {
-    console.log(error.message);
-    responseReturn(res, 500, { error: 'Server error' });
+    // console.log(error.message);
+    responseReturn(res, 500, { error: error.message });
   }
 };
 

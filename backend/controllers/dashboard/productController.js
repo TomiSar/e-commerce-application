@@ -58,8 +58,8 @@ const addProduct = async (req, res) => {
 
       responseReturn(res, 201, { message: 'Product Added Successfully' });
     } catch (error) {
-      console.log(error.message);
-      responseReturn(res, 500, { error: 'Internal Server Error' });
+      // console.log(error.message);
+      responseReturn(res, 500, { error: error.message });
     }
   });
 };
@@ -92,8 +92,8 @@ const getProducts = async (req, res) => {
 
     responseReturn(res, 200, { products, totalProduct });
   } catch (error) {
-    console.error(error.message);
-    responseReturn(res, 500, { error: 'Server error' });
+    // console.error(error.message);
+    responseReturn(res, 500, { error: error.message });
   }
 };
 
@@ -104,7 +104,8 @@ const getProduct = async (req, res) => {
     const product = await productModel.findById(productId);
     responseReturn(res, 200, { product });
   } catch (error) {
-    console.error(error.message);
+    // console.error(error.message);
+    responseReturn(res, 500, { error: error.message });
   }
 };
 
@@ -131,6 +132,7 @@ const updateProduct = async (req, res) => {
       message: 'Product Updated Successfully',
     });
   } catch (error) {
+    // console.log(error.message);
     responseReturn(res, 500, { error: error.message });
   }
 };
@@ -173,7 +175,7 @@ const updateProductImage = async (req, res) => {
           responseReturn(res, 404, { error: 'Image Upload Failed' });
         }
       } catch (error) {
-        console.log(error.message);
+        // console.log(error.message);
         responseReturn(res, 404, { error: error.message });
       }
     }

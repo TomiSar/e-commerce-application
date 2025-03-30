@@ -21,9 +21,35 @@ const getSellerRequest = async (req, res) => {
       responseReturn(res, 200, { sellers, totalSeller });
     }
   } catch (error) {
-    console.log(error.message);
-    responseReturn(res, 500, { error: 'Server error' });
+    // console.log(error.message);
+    responseReturn(res, 500, { error: error.message });
   }
 };
 
-export { getSellerRequest };
+const getSeller = async (req, res) => {
+  const { sellerId } = req.params;
+  try {
+    const seller = await sellerModel.findById(sellerId);
+    responseReturn(res, 200, { seller });
+  } catch (error) {
+    // console.log(error.message);
+    responseReturn(res, 500, { error: error.message });
+  }
+};
+
+const updateSellerStatus = async (req, res) => {
+  const { sellerId, status } = req.body;
+  try {
+    await sellerModel.findByIdAndUpdate(sellerId, { status });
+    const seller = await sellerModel.findById(sellerId);
+    responseReturn(res, 200, {
+      seller,
+      message: 'Seller Status Updated Successfully',
+    });
+  } catch (error) {
+    // console.log(error.message);
+    responseReturn(res, 500, { error: error.message });
+  }
+};
+
+export { getSellerRequest, getSeller, updateSellerStatus };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaImages } from 'react-icons/fa6';
 import { FadeLoader, PropagateLoader } from 'react-spinners';
+import { overrideStyle } from '../../utils/utils';
 import { FaRegEdit } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -9,7 +10,6 @@ import {
   addProfileInfo,
 } from '../../store/Reducers/authReducer';
 import toast from 'react-hot-toast';
-import { overrideStyle } from '../../utils/utils';
 
 const Profile = () => {
   const [state, setState] = useState({

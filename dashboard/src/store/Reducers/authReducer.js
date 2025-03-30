@@ -57,7 +57,7 @@ export const sellerLogin = createAsyncThunk(
 );
 
 export const getUserInfo = createAsyncThunk(
-  'auth/get_user_info',
+  'auth/getUserInfo',
   async (_, { rejectWithValue, fulfillWithValue }) => {
     try {
       const { data } = await api.get('/get-user', { withCredentials: true });
