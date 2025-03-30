@@ -14,7 +14,7 @@ router.route('/admin-login').post(adminLogin);
 router.route('/get-user').get(authMiddleware, getUser);
 router.route('/seller-register').post(sellerRegister);
 router.route('/seller-login').post(sellerLogin);
-router.route('/profile-image-upload').post(authMiddleware, uploadProfileImage);
-router.route('/profile-info-add').post(authMiddleware, addProfileInfo);
+router.route('/upload-profile-image').post(authMiddleware, uploadProfileImage);
+router.route('/add-profile-info').post(authMiddleware, addProfileInfo);
 
 export default router;

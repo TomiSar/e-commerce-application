@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+/* eslint-disable jsx-a11y/scope */
+import React, { useEffect, useState } from 'react';
 import { FaEye } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Pagination from '../Pagination';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSellerRequest } from '../../store/Reducers/sellerReducer';
+import Search from '../components/Search';
 
 const SellerRequest = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -9,27 +13,27 @@ const SellerRequest = () => {
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [show, setShow] = useState(false);
 
+  const dispatch = useDispatch();
+  const { sellers, totalSeller } = useSelector((state) => state.seller);
+
+  useEffect(() => {
+    const obj = {
+      itemsPerPage: parseInt(itemsPerPage),
+      currentPage: parseInt(currentPage),
+      searchValue,
+    };
+    dispatch(getSellerRequest(obj));
+  }, [itemsPerPage, currentPage, searchValue, dispatch]);
+
   return (
     <div className='px-2 lg:px-7 pt-5'>
       <h1 className='text-[20px] font-bold mb-3'>Seller Request</h1>
       <div className='w-full p-4 bg-[#6a5fdf] rounded-md'>
-        <div className='flex justify-between items-center'>
-          <select
-            className='px-4 py-2 focus:border-indigo-500 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]'
-            onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-          >
-            <option value='5'>5</option>
-            <option value='10'>10</option>
-            <option value='20'>20</option>
-          </select>
-          <input
-            className='px-4 py-2 focus:border-indigo-500 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]'
-            type='text'
-            placeholder='search'
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-          />
-        </div>
+        <Search
+          setItemsPerPage={setItemsPerPage}
+          setSearchValue={setSearchValue}
+          searchValue={searchValue}
+        />
         <div className='relative overflow-x-auto'>
           <table className='w-full text-sm text-left text-[#d0d2d6]'>
             <thead className='text-sm text-[#d0d2d6] uppercase border-b border-slate-700'>
@@ -55,46 +59,46 @@ const SellerRequest = () => {
               </tr>
             </thead>
             <tbody>
-              {[1, 2, 3, 4, 5].map((d, i) => (
+              {sellers.map((seller, i) => (
                 <tr className='border-b border-slate-700' key={i}>
                   <td
-                    scope='row'
                     className='py-2 px-4 font-medium whitespace-nowrap'
+                    scope='row'
                   >
-                    {d}
+                    {i + 1}
                   </td>
                   <td
-                    scope='row'
                     className='py-2 px-4 font-medium whitespace-nowrap'
+                    scope='row'
                   >
-                    Admin
+                    {seller.name}
                   </td>
                   <td
-                    scope='row'
                     className='py-2 px-4 font-medium whitespace-nowrap'
+                    scope='row'
                   >
-                    admin@email.com
+                    {seller.email}
                   </td>
                   <td
-                    scope='row'
                     className='py-2 px-4 font-medium whitespace-nowrap'
+                    scope='row'
                   >
-                    <span>Active</span>
+                    <span>{seller.payment}</span>
                   </td>
                   <td
-                    scope='row'
                     className='py-2 px-4 font-medium whitespace-nowrap'
+                    scope='row'
                   >
-                    <span>Deactive</span>
+                    <span>{seller.status}</span>
                   </td>
                   <td
-                    scope='row'
                     className='py-2 px-4 font-medium whitespace-nowrap'
+                    scope='row'
                   >
                     <div className='flex justify-start items-center gap-4'>
                       <Link
                         className='p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50'
-                        to={`/admin/dashboard/seller/details/2`}
+                        to={`/admin/dashboard/seller/details/${seller._id}`}
                       >
                         <FaEye />
                       </Link>

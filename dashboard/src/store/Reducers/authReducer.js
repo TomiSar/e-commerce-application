@@ -89,7 +89,7 @@ export const uploadProfileImage = createAsyncThunk(
   'auth/uploadProfileImage',
   async (image, { rejectWithValue, fulfillWithValue }) => {
     try {
-      const { data } = await api.post('/profile-image-upload', image, {
+      const { data } = await api.post('/upload-profile-image', image, {
         withCredentials: true,
       });
       // console.log(data)
@@ -105,7 +105,7 @@ export const addProfileInfo = createAsyncThunk(
   'auth/addProfileInfo',
   async (info, { rejectWithValue, fulfillWithValue }) => {
     try {
-      const { data } = await api.post('/profile-info-add', info, {
+      const { data } = await api.post('/add-profile-info', info, {
         withCredentials: true,
       });
       return fulfillWithValue(data);

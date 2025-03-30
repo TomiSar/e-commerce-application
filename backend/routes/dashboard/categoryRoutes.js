@@ -6,7 +6,7 @@ import {
 import { authMiddleware } from '../../middleware/authMiddleware.js';
 
 const router = express.Router();
-router.route('/category-add').post(authMiddleware, addCategory);
-router.route('/category-get').get(authMiddleware, getCategory);
+router.route('/add-category').post(authMiddleware, addCategory);
+router.route('/get-category').get(authMiddleware, getCategory);
 
 export default router;

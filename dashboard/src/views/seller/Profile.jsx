@@ -183,13 +183,13 @@ const Profile = () => {
                   </div>
 
                   <div className='flex flex-col w-full gap-1 mb-2'>
-                    <label htmlFor='sub'>Sub District Name</label>
+                    <label htmlFor='sub'>Subdistrict Name</label>
                     <input
                       className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]'
                       type='text'
                       name='subDistrict'
                       id='sub'
-                      placeholder='Sub District Name'
+                      placeholder='Subdistrict Name'
                       onChange={inputHandle}
                       value={state.subDistrict}
                     />
@@ -227,7 +227,7 @@ const Profile = () => {
                     <span>{userInfo.shopInfo?.district}</span>
                   </div>
                   <div className='flex gap-2'>
-                    <span>Sub District : </span>
+                    <span>Subdistrict : </span>
                     <span>{userInfo.shopInfo?.subDistrict}</span>
                   </div>
                 </div>

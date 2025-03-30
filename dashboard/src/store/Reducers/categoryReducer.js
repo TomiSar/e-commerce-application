@@ -8,7 +8,7 @@ export const addCategory = createAsyncThunk(
       const formData = new FormData();
       formData.append('name', name);
       formData.append('image', image);
-      const { data } = await api.post('/category-add', formData, {
+      const { data } = await api.post('/add-category', formData, {
         withCredentials: true,
       });
       // console.log(data);
@@ -28,7 +28,7 @@ export const getCategory = createAsyncThunk(
   ) => {
     try {
       const { data } = await api.get(
-        `/category-get?currentPage=${currentPage}&&searchValue=${searchValue}&&itemsPerPage=${itemsPerPage}`,
+        `/get-category?currentPage=${currentPage}&&searchValue=${searchValue}&&itemsPerPage=${itemsPerPage}`,
         { withCredentials: true }
       );
       // console.log(data);

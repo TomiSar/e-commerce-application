@@ -9,10 +9,10 @@ import {
 import { authMiddleware } from '../../middleware/authMiddleware.js';
 
 const router = express.Router();
-router.route('/product-add').post(authMiddleware, addProduct);
-router.route('/products-get').get(authMiddleware, getProducts);
-router.route('/product-get/:productId').get(authMiddleware, getProduct);
-router.route('/product-update').post(authMiddleware, updateProduct);
-router.route('/product-image-update').post(authMiddleware, updateProductImage);
+router.route('/add-product').post(authMiddleware, addProduct);
+router.route('/get-products').get(authMiddleware, getProducts);
+router.route('/get-product/:productId').get(authMiddleware, getProduct);
+router.route('/update-product').post(authMiddleware, updateProduct);
+router.route('/update-product-image').post(authMiddleware, updateProductImage);
 
 export default router;

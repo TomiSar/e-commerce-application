@@ -5,7 +5,7 @@ export const addProduct = createAsyncThunk(
   'product/addProduct',
   async (product, { rejectWithValue, fulfillWithValue }) => {
     try {
-      const { data } = await api.post('/product-add', product, {
+      const { data } = await api.post('/add-product', product, {
         withCredentials: true,
       });
       //   console.log(data);
@@ -25,7 +25,7 @@ export const getProducts = createAsyncThunk(
   ) => {
     try {
       const { data } = await api.get(
-        `/products-get?currentPage=${currentPage}&&searchValue=${searchValue}&&itemsPerPage=${itemsPerPage}`,
+        `/get-products?currentPage=${currentPage}&&searchValue=${searchValue}&&itemsPerPage=${itemsPerPage}`,
         { withCredentials: true }
       );
       //   console.log(data);
@@ -41,7 +41,7 @@ export const getProduct = createAsyncThunk(
   'product/getProduct',
   async (productId, { rejectWithValue, fulfillWithValue }) => {
     try {
-      const { data } = await api.get(`/product-get/${productId}`, {
+      const { data } = await api.get(`/get-product/${productId}`, {
         withCredentials: true,
       });
       //   console.log(data);
@@ -57,7 +57,7 @@ export const updateProduct = createAsyncThunk(
   'product/updateProduct',
   async (product, { rejectWithValue, fulfillWithValue }) => {
     try {
-      const { data } = await api.post(`/product-update`, product, {
+      const { data } = await api.post(`/update-product`, product, {
         withCredentials: true,
       });
       //   console.log(data);
@@ -80,7 +80,7 @@ export const updateProductImage = createAsyncThunk(
       formData.append('productId', productId);
       formData.append('oldImage', oldImage);
       formData.append('newImage', newImage);
-      const { data } = await api.post('/product-image-update', formData, {
+      const { data } = await api.post('/update-product-image', formData, {
         withCredentials: true,
       });
       //   console.log(data);

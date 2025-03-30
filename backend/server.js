@@ -7,6 +7,7 @@ import connectDB from './utils/db.js';
 import authRoutes from './routes/authRoutes.js';
 import categoryRoutes from './routes/dashboard/categoryRoutes.js';
 import productRoutes from './routes/dashboard/productRoutes.js';
+import sellerRoutes from './routes/dashboard/sellerRoutes.js';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -30,6 +31,7 @@ app.use(cookieParser());
 app.use('/api', authRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
+app.use('/api', sellerRoutes);
 
 app.get('', (req, res) => {
   res.send('Hello From server!!');
