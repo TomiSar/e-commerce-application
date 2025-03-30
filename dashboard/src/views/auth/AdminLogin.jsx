@@ -95,7 +95,7 @@ const AdminLogin = () => {
               />
             </div>
             <button
-              className='bg-slate-900 w-full hover:shadow-blue-300 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'
+              className='bg-slate-900 w-[180px] hover:shadow-blue-300 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'
               disabled={loader}
             >
               {loader ? (

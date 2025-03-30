@@ -138,7 +138,7 @@ const EditProduct = () => {
           <h1 className='text-[#d0d2d6] text-xl font-semibold'>Edit Product</h1>
           <Link
             to='/seller/dashboard/products'
-            className='bg-blue-500 w-[150px] hover:shadow-blue-500/50 hover:shadow-lg text-white rounded-md px-7 py-2 my-2'
+            className='bg-blue-700 w-[180px] hover:shadow-blue-300/40 hover:shadow-lg text-white rounded-md px-7 py-2 my-3'
           >
             All Product
           </Link>
