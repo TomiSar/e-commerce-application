@@ -1,9 +1,21 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import { socket } from '../utils/utils';
+import { useSelector } from 'react-redux';
 
 const MainLayout = () => {
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo && userInfo.role === 'seller') {
+      socket.emit('addSeller', userInfo._id, userInfo);
+    } else {
+      socket.emit('addAdmin', userInfo);
+    }
+  }, [userInfo]);
+
   const [showSidebar, setShowSidebar] = useState(false);
 
   return (
